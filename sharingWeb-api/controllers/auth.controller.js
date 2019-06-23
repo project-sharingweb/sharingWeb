@@ -6,7 +6,7 @@ const createError = require('http-errors')
 module.exports.register = (req, res, next) => {
   const { email } = req.body
 
-  User.findOne({email: email})
+  Shop.findOne({email: email})
     .then(shop => {
       if (shop) {
         throw createError(409, 'Email already registered')

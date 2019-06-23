@@ -54,8 +54,8 @@ const shopSchema = new mongoose.Schema({
    }
    }, {timestamps: true, toJSON:{
        virtuals: true,
-       transform: (doc, req ) => {
-           req.id = ret._id;
+       transform: (doc, ret ) => {
+           ret.id = ret._id;
            delete ret._id;
            delete ret.password;
            return ret;
@@ -64,21 +64,21 @@ const shopSchema = new mongoose.Schema({
 })
 
 shopSchema.pre('save', function(next){
-   const shop = this
-   if(shop.isModified(password)){
-       bcrypt.genSalt(SALT_FACTOR)
-           .then (salt => {
-               return bcrypt.hash(shop.password, salt)
-                   .then(hash => {
-                       shop.password=hash
-                       next()
-                   })
-           })
-           .catch(next)
-   }
-   else{
-       next()
-   }
+  const shop = this
+  if(shop.isModified("password")){
+      bcrypt.genSalt(SALT_FACTOR)
+          .then (salt => {
+              return bcrypt.hash(shop.password, salt)
+                  .then(hash => {
+                      shop.password=hash
+                      next()
+                  })
+          })
+          .catch(next)
+  }
+  else{
+      next()
+  }
 })
 
 shopSchema.methods.checkPassword = function(password){
