@@ -10,6 +10,7 @@ const session = require('./config/session.config')
 
 const homeRouter = require('./routes/home.routes');
 const authRouter = require('./routes/auth.routes');
+const shopRouter = require('./routes/shop.routes');
 
 
 const app = express();
@@ -20,7 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session);
 
-app.use('/auth', authRouter)
+app.use('/auth', authRouter);
+app.use('/shops', shopRouter);
 app.use('/', homeRouter);
 
 

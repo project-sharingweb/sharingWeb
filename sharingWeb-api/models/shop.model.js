@@ -32,7 +32,7 @@ const shopSchema = new mongoose.Schema({
        type: String,
        match: [URL_PATTERN, 'Invalid URl pattern']
    },
-   byImage: {
+   bgImage: {
        type: String,
        match: [URL_PATTERN, 'Invalid URl pattern']
    },
