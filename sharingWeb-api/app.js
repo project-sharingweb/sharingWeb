@@ -8,7 +8,8 @@ const logger = require('morgan');
 require('./config/db.config')
 const session = require('./config/session.config')
 
-const homeRouter = require('./routes/home');
+const homeRouter = require('./routes/home.routes');
+const authRouter = require('./routes/auth.routes');
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session);
 
+app.use('/auth', authRouter)
 app.use('/', homeRouter);
 
 
