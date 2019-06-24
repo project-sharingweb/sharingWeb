@@ -4,10 +4,10 @@ const URL_PATTERN   = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2
 
 
 const productSchema = new mongoose.Schema({
-  /*shop: {
-    type: mongoose.Schema.Types.name,
-    ref: 'Shop',
-  },*/
+  shop: {
+    type: String,
+    required: true
+  },
   category: {
     type: String,
     lowercase: true,
