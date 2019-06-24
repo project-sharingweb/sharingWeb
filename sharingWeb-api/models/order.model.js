@@ -3,10 +3,10 @@ const mongoose = require ('mongoose')
 const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const orderSchema = new mongoose.Schema({
-  /*shop: {
-    type: mongoose.Schema.Types.name,
-    ref: 'Shop',
-    },*/
+  shop: {
+    type: String,
+    required: true
+  },
   status: {
     type: String,
     enum: ["pending", "completed", "in process"]
