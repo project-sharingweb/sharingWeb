@@ -7,6 +7,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  number: {
+    type: Number,
+    required: true
+  },
   status: {
     type: String,
     enum: ["pending", "completed", "in process"]

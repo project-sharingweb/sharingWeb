@@ -6,7 +6,16 @@ const URL_PATTERN   = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2
 const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const PASS_PATTERN  = /^(((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])))/;
 
-
+const modifyName = (name) => {
+    name = name.split("")
+    name = name.map(item => {
+        if(item === " ") return "-"
+        else return item
+    })
+    name = name.join("")
+    console.log(name)
+    return name;
+}
 
 const shopSchema = new mongoose.Schema({
    email: {
@@ -27,6 +36,7 @@ const shopSchema = new mongoose.Schema({
        type: String,
        required: true,
        unique: true,
+       lowercase: true
    },
    logo: {
        type: String,
@@ -66,6 +76,7 @@ const shopSchema = new mongoose.Schema({
 
 shopSchema.pre('save', function(next){
   const shop = this
+  shop.name = modifyName(shop.name)
   if(shop.isModified("password")){
       bcrypt.genSalt(SALT_FACTOR)
           .then (salt => {

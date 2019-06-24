@@ -13,7 +13,7 @@ router.post('/addproduct', secure.isAuthenticated, shopController.addProduct)
 
 router.get('/:name/orders', secure.isAuthenticated, shopController.ordersList)
 router.get('/:name/orders/:id', secure.isAuthenticated, shopController.ordersDetail)
-router.post('/:name/purchase', shopController.purchase)
+router.post('/purchase', shopController.purchase)
 
 
 
