@@ -3,7 +3,7 @@ const mongoose = require ('mongoose')
 const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const orderSchema = new mongoose.Schema({
-  shop: {
+  shopName: {
     type: String,
     required: true
   },
