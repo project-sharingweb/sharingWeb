@@ -7,7 +7,7 @@ passport.serializeUser((user, next) => {
 })
 
 passport.deserializeUser((id, next) => {
-  User.findById(id)
+  Shop.findById(id)
     .then(user => next(null, user))
     .catch(next)
 })
@@ -17,18 +17,18 @@ passport.use('auth-local', new LocalStrategy ({
   usernameField: 'email',
   passwordField: 'password'
   }, (email, password, next) => {
-    User.findOne({ email: email} )
-      .then (user => {
-        if (!user) {
+    Shop.findOne({ email: email} )
+      .then (shop => {
+        if (!shop) {
           next(null, false, 'Invalid email or password');
         }
         else {
-          return user.checkPassword(password)
+          return shop.checkPassword(password)
           .then(match => {
             if (!match) {
               next(null, false, 'Invalid email or password');
             }
-            else { next(null, user); }
+            else { next(null, shop); }
           })
         }
       })
