@@ -3,7 +3,7 @@ const router = express.Router();
 const shopController = require('../controllers/shop.controller')
 const secure = require('../middlewares/secure.mid')
 
-router.get('/', homeController.shops)
+router.get('/', shopController.shops)
 
 router.get('/:name', shopController.home)
 
