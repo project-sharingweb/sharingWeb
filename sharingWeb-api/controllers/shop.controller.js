@@ -6,7 +6,7 @@ const Order = require('../models/order.model')
 module.exports.list = (req, res, next) => {
 
   Shop.find()
-    .then(shops => res.status(200).json())
+    .then(shops => res.status(200).json(shops))
     .catch(next)
 }
 
