@@ -11,7 +11,7 @@ const passport = require('passport')
 
 require('./config/db.config')
 const session = require('./config/session.config')
-require('./configs/passport.config')
+require('./config/passport.config')
 
 const homeRouter = require('./routes/home.routes');
 const authRouter = require('./routes/auth.routes');
