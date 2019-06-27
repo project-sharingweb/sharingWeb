@@ -19,6 +19,24 @@ module.exports.register = (req, res, next) => {
     .catch(next)
 }
 
+module.exports.editShop = (req, res, next) => {
+  const { email } = req.user
+  console.log(email)
+
+  Shop.findOne({email: email})
+    .then(shop => {
+      if (shop) {
+        for(let k in req.body) shop[k]=req.body[k]
+        return shop.save()
+      }
+      else {
+        createError(404, 'shop not found')
+      }
+    })
+    .then(shop => res.status(201).json(shop))
+    .catch(next)
+}
+
 
 
 module.exports.login = (req, res, next) => {
