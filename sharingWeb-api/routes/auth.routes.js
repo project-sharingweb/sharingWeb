@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/auth.controller')
 const secure = require('../middlewares/secure.mid')
 const storage = require('../config/storage.config');
+const passport = require('passport')
 
 
 /* GET home page. */
