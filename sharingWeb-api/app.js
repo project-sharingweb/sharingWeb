@@ -12,6 +12,7 @@ const passport = require('passport')
 require('./config/db.config')
 const session = require('./config/session.config')
 require('./config/passport.config')
+const cors = require('./config/cors.config');
 
 const homeRouter = require('./routes/home.routes');
 const authRouter = require('./routes/auth.routes');
@@ -24,6 +25,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(cors)
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
