@@ -24,7 +24,7 @@ module.exports.productsList = (req, res, next) => {
   const shopName = req.params.name
 
   Product.find({shopName: shopName})
-    .then(products => res.status(200).json(product))
+    .then(products => res.status(200).json(products))
     .catch(next)
 }
 
