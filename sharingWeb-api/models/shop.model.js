@@ -44,7 +44,12 @@ const shopSchema = new mongoose.Schema({
    },
    bgImage: {
        type: String,
-       match: [URL_PATTERN, 'Invalid URl pattern']
+       match: [URL_PATTERN, 'Invalid URl pattern'],
+       default: "https://outven.net/wp-content/uploads/2018/09/outven-background-landing-usa.jpg"
+   },
+   navbarColor: {
+       type: String,
+       default: "white"
    },
    aboutUs: {
        type: String,

@@ -28,7 +28,8 @@ const productSchema = new mongoose.Schema({
    },
    image: {
      type: String,
-     match: [URL_PATTERN, 'Not valid url pattern']
+     match: [URL_PATTERN, 'Not valid url pattern'],
+     default: "https://webstore.iea.org/content/images/thumbs/default-image_450.png"
    }
    }, {timestamps: true, toJSON:{
        virtuals: true,
