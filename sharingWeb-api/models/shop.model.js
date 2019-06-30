@@ -57,7 +57,8 @@ const shopSchema = new mongoose.Schema({
    styles: {
        logo: {
            type: String,
-           default: "http://www.nashikproperty.com/uploads/builder-logo/default-logo.png"
+           default: "http://www.nashikproperty.com/uploads/builder-logo/default-logo.png",
+           match: [URL_PATTERN, 'Invalid name url']
        },
        nav: {
            backgroundColor: {type: String, default: "white"},
