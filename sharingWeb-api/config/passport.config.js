@@ -15,19 +15,19 @@ passport.deserializeUser((id, next) => {
 
 
 passport.use('auth-local', new LocalStrategy ({
-  usernameField: 'email',
+  usernameField: 'name',
   passwordField: 'password'
-  }, (email, password, next) => {
-    Shop.findOne({ email: email} )
+  }, (name, password, next) => {
+    Shop.findOne({ name: name} )
       .then (shop => {
         if (!shop) {
-          next(null, false, 'Invalid email or password');
+          next(null, false, 'Invalid name or password');
         }
         else {
           return shop.checkPassword(password)
           .then(match => {
             if (!match) {
-              next(null, false, 'Invalid email or password');
+              next(null, false, 'Invalid name or password');
             }
             else { next(null, shop); }
           })
