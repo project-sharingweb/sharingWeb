@@ -37,7 +37,7 @@ app.use('/', homeRouter);
 
 //handling errors
 app.use(function (error, req, res, next) {
-
+  console.error(error)
   res.status(error.status || 500);
 
   const data = {}

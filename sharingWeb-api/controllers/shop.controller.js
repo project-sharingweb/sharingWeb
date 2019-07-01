@@ -14,7 +14,7 @@ module.exports.list = (req, res, next) => {
 module.exports.shopDetail = (req, res, next) => {
   const shopName = req.params.name
   
-  Shop.findOne({name: shopName})
+  Shop.findOne({urlName: shopName})
     .then(shop => res.status(200).json(shop))
     .catch(next)
 }

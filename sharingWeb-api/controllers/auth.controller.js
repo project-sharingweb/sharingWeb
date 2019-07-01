@@ -47,7 +47,7 @@ module.exports.login = (req, res, next) => {
     }else {
       req.login(shop, (error) => {
         if (error) {next(error)}
-        else {res.status(201).json(shop)}
+        else {res.status(200).json(shop)}
       })
     }
   })(req, res, next)
