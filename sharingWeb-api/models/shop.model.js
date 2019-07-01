@@ -18,60 +18,55 @@ const modifyName = (name) => {
 }
 
 const shopSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        match: [EMAIL_PATTERN, 'Invalid name pattern'],
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 8,
-        match: [PASS_PATTERN, 'Invalid name pattern']
-    },
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true
-    },
-    aboutUs: {
-        type: String,
-    },
-    moto: {
-        type: String,
-        maxlength: 144,
-    },
-    contact: {
-        type: String,
-    },
-    locations: {
-        type: {
-            type: String
-        },
-        coordinates: [Number]
-    },
-    styles: {
-        logo: {
-            type: String,
-            match: [URL_PATTERN, 'Invalid URl pattern']
-        },
-        bgImage: {
-            type: String,
-            match: [URL_PATTERN, 'Invalid URl pattern'],
-            default: "https://outven.net/wp-content/uploads/2018/09/outven-background-landing-usa.jpg"
-        },
-        nav: {
-            type: String,
-            default: {
-                backgroundcolor: "White",
-            } 
-        }
-    }
-    }, {timestamps: true, toJSON:{
+   email: {
+       type: String,
+       match: [EMAIL_PATTERN, 'Invalid name pattern'],
+       required: true,
+       unique: true,
+       trim: true,
+       lowercase: true
+   },
+   password: {
+       type: String,
+       required: true,
+       minlength: 8,
+       match: [PASS_PATTERN, 'Invalid name pattern']
+   },
+   name: {
+       type: String,
+       required: true,
+       unique: true,
+       lowercase: true
+   },
+   aboutUs: {
+       type: String,
+   },
+   moto: {
+       type: String,
+       maxlength: 144,
+   },
+   contact: {
+       type: String,
+   },
+   locations: {
+       type: {
+           type: String
+       },
+       coordinates: [Number]
+   },
+   styles: {
+       logo: {
+           type: String,
+           default: "http://www.nashikproperty.com/uploads/builder-logo/default-logo.png"
+       },
+       nav: {
+           backgroundColor: {type: String, default: "white"},
+       },
+       landingImage: {
+           backgroundImage: String
+       }
+   }
+   }, {timestamps: true, toJSON:{
        virtuals: true,
        transform: (doc, ret ) => {
            ret.id = ret._id;
