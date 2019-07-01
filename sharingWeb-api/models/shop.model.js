@@ -7,6 +7,7 @@ const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-
 const PASS_PATTERN  = /^(((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])))/;
 
 const modifyName = (name) => {
+    name = name.toLowerCase()
     name = name.split("")
     name = name.map(item => {
         if(item === " ") return "-"
@@ -35,8 +36,11 @@ const shopSchema = new mongoose.Schema({
    name: {
        type: String,
        required: true,
-       unique: true,
-       lowercase: true
+       unique: true
+   },
+   urlName: {
+       type: String,
+       unique: true
    },
    aboutUs: {
        type: String,
@@ -81,6 +85,7 @@ const shopSchema = new mongoose.Schema({
 })
 
 shopSchema.pre('save', function(next){
+<<<<<<< HEAD
     const shop = this
     shop.name = modifyName(shop.name)
     if(shop.isModified("password")){
@@ -97,6 +102,24 @@ shopSchema.pre('save', function(next){
     else{
         next()
     }
+=======
+  const shop = this
+  shop.urlName = modifyName(shop.name)
+  if(shop.isModified("password")){
+      bcrypt.genSalt(SALT_FACTOR)
+          .then (salt => {
+              return bcrypt.hash(shop.password, salt)
+                  .then(hash => {
+                      shop.password=hash
+                      next()
+                  })
+          })
+          .catch(next)
+  }
+  else{
+      next()
+  }
+>>>>>>> b5802aff0f71f98e4d74a2a638ced916c042660c
 })
 
 shopSchema.methods.checkPassword = function(password){
