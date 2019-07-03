@@ -61,7 +61,7 @@ const shopSchema = new mongoose.Schema({
    styles: {
        logo: {
            type: String,
-           default: "http://www.nashikproperty.com/uploads/builder-logo/default-logo.png",
+           default: "https://res.cloudinary.com/dvjtdeyli/image/upload/v1562163110/game-images/logo_limpio_hagncs.png",
            match: [URL_PATTERN, 'Invalid name url']
        },
        nav: {
