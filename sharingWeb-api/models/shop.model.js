@@ -85,24 +85,6 @@ const shopSchema = new mongoose.Schema({
 })
 
 shopSchema.pre('save', function(next){
-<<<<<<< HEAD
-    const shop = this
-    shop.name = modifyName(shop.name)
-    if(shop.isModified("password")){
-        bcrypt.genSalt(SALT_FACTOR)
-            .then (salt => {
-                return bcrypt.hash(shop.password, salt)
-                    .then(hash => {
-                        shop.password=hash
-                        next()
-                    })
-            })
-            .catch(next)
-    }
-    else{
-        next()
-    }
-=======
   const shop = this
   shop.urlName = modifyName(shop.name)
   if(shop.isModified("password")){
@@ -119,7 +101,6 @@ shopSchema.pre('save', function(next){
   else{
       next()
   }
->>>>>>> b5802aff0f71f98e4d74a2a638ced916c042660c
 })
 
 shopSchema.methods.checkPassword = function(password){
