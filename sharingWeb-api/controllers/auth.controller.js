@@ -20,10 +20,10 @@ module.exports.register = (req, res, next) => {
 }
 
 module.exports.editShop = (req, res, next) => {
-  const { email } = req.user
-  console.log(email)
+  const { name } = req.user
+  console.log(name)
 
-  Shop.findOne({email: email})
+  Shop.findOne({name: name})
     .then(shop => {
       if (shop) {
         for(let k in req.body) shop[k]=req.body[k]
