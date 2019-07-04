@@ -65,10 +65,25 @@ const shopSchema = new mongoose.Schema({
            match: [URL_PATTERN, 'Invalid name url']
        },
        nav: {
-           backgroundColor: {type: String, default: "white"},
+            backgroundColor: {type: String, default: "white"},
        },
        landingImage: {
-           backgroundImage: String
+            backgroundImage: String
+       },
+       titleFont: {
+        color: {type: String}
+       },
+       background: {
+            backgroundColor: {type: String, default: "white"}
+       },
+       purchaseButton: {
+            backgorundColor: {type: String}
+       },
+       footerBackground: {
+            backgorundColor: {type: String}
+       },
+       footerFont: {
+            color: {type: String}
        }
    }
    }, {timestamps: true, toJSON:{
