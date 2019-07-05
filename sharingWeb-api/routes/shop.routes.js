@@ -6,6 +6,7 @@ const storage = require('../config/storage.config');
 
 router.get('/', shopController.list)
 router.get('/:name', shopController.shopDetail)
+router.put('/editshop', secure.isAuthenticated, storage.single('image'), shopController.editShop)
 
 router.get('/:name/products', shopController.productsList)
 router.get('/:name/products/:id', shopController.productDetail)
