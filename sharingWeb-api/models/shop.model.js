@@ -71,16 +71,16 @@ const shopSchema = new mongoose.Schema({
             backgroundImage: String
        },
        titleFont: {
-        color: {type: String}
+            color: {type: String}
        },
        background: {
             backgroundColor: {type: String, default: "white"}
        },
        purchaseButton: {
-            backgorundColor: {type: String}
+            backgroundColor: {type: String}
        },
        footerBackground: {
-            backgorundColor: {type: String}
+            backgroundColor: {type: String, default: "lightblue"}
        },
        footerFont: {
             color: {type: String}

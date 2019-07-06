@@ -8,7 +8,6 @@ const passport = require('passport')
 
 /* GET home page. */
 router.post('/register', authController.register)
-router.put('/editshop', secure.isAuthenticated, storage.single('image'), authController.editShop)
 
 router.post('/login', authController.login)
 
