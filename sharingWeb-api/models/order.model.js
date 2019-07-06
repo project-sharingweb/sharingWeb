@@ -5,7 +5,8 @@ const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-
 const orderSchema = new mongoose.Schema({
   shopName: {
     type: String,
-    required: true
+    required: true,
+    ref: "Shop"
   },
   number: {
     type: Number,
