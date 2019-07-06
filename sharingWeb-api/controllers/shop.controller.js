@@ -75,23 +75,23 @@ module.exports.purchase = (req, res, next) => {
 }
 
 module.exports.editShop = (req, res, next) => {
+  const shop = req.body
+  delete shop.email
+  delete shop.password
+  delete shop.name
+
   const { name } = req.user
 /*
-  if (req.file) {
+  if (req.files) {
     req.body.shop.styles.logo = req.file.secure_url;
     req.body.shop.styles.landingImage.backgroundImage = `url(${req.file.secure_url})`
   }
-*/
-  Shop.findOne({name: name})
+  */
+
+  Shop.findOneAndUpdate({name: name}, { $set: shop}, { new: true, runValidators: true})
     .then(shop => {
-      if (shop) {
-        for(let k in req.body) shop[k]=req.body[k]
-        return shop.save()
-      }
-      else {
-        createError(404, 'shop not found')
-      }
+      if (shop) res.json(shop)
+      else createError(404, 'shop not found')
     })
-    .then(shop => res.status(201).json(shop))
     .catch(next)
 }

@@ -58,14 +58,17 @@ const shopSchema = new mongoose.Schema({
        },
        coordinates: [Number]
    },
+   logo: {
+    type: String,
+    default: "https://res.cloudinary.com/dvjtdeyli/image/upload/v1562163110/game-images/logo_limpio_hagncs.png",
+    match: [URL_PATTERN, 'Invalid name url']
+   },
    styles: {
-       logo: {
-           type: String,
-           default: "https://res.cloudinary.com/dvjtdeyli/image/upload/v1562163110/game-images/logo_limpio_hagncs.png",
-           match: [URL_PATTERN, 'Invalid name url']
-       },
        nav: {
             backgroundColor: {type: String, default: "white"},
+       },
+       navLinks: {
+            color: {type: String, default: "black"}
        },
        landingImage: {
             backgroundImage: String

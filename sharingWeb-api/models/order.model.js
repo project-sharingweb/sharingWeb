@@ -8,10 +8,6 @@ const orderSchema = new mongoose.Schema({
     required: true,
     ref: "Shop"
   },
-  number: {
-    type: Number,
-    required: true
-  },
   status: {
     type: String,
     enum: ["pending", "completed", "in process"]
