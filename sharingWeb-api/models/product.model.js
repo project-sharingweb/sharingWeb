@@ -2,6 +2,11 @@ const mongoose = require ('mongoose')
 
 const URL_PATTERN   = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 
+function createDescriptionPreview (description) {
+  if (description.length > 50) return description.slice(0, 46) + "..."
+  else return description
+}
+
 
 const productSchema = new mongoose.Schema({
   shopName: {
@@ -20,6 +25,10 @@ const productSchema = new mongoose.Schema({
    description: {
      type: String,
      required: true,
+   },
+   descriptionPreview: {
+     type: String,
+     maxlength: 100
    },
    price: {
      type: Number,
@@ -40,6 +49,12 @@ const productSchema = new mongoose.Schema({
            return ret;
        }
    }
+})
+
+productSchema.pre('save', function(next){
+  const product = this
+  product.descriptionPreview = createDescriptionPreview(product.description)
+  next()
 })
 
 

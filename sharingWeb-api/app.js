@@ -10,6 +10,7 @@ const passport = require('passport')
 
 
 require('./config/db.config')
+require('./config/paypal.config')
 const session = require('./config/session.config')
 require('./config/passport.config')
 const cors = require('./config/cors.config');

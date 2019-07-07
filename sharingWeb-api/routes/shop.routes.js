@@ -16,13 +16,12 @@ router.put('/:name',
   shopController.editShop)
 
 router.get('/:name/products', shopController.productsList)
-router.get('/:name/products/:id', shopController.productDetail)
 router.post('/:name/products', secure.isAuthenticated, secure.ownedByUser, storage.single('image'), shopController.addProduct)
-
+router.get('/:name/products/:id', shopController.productDetail)
 
 router.get('/:name/orders', secure.isAuthenticated, secure.ownedByUser, shopController.ordersList)
-router.get('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shopController.ordersDetail)
 router.post('/:name/orders', shopController.purchase)
+router.get('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shopController.ordersDetail)
 
 
 

@@ -23,7 +23,8 @@
     "multer-storage-cloudinary": "^2.2.1",
     "passport": "^0.4.0",
     "passport-google-oauth2": "^0.2.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "paypal-rest-sdk": "^1.8.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

@@ -39,6 +39,7 @@ module.exports.productDetail = (req, res, next) => {
 
 
 module.exports.addProduct = (req, res, next) => {
+
   const product = new Product(req.body)
 
   product.save()
@@ -67,7 +68,44 @@ module.exports.ordersDetail = (req, res, next) => {
 
 
 module.exports.purchase = (req, res, next) => {
-  const order = new Order(req.body) 
+  const order = new Order(req.body)
+  
+  var create_payment_json = {
+    intent: "sale",
+    payer: {
+        payment_method: "paypal"
+    },
+    redirect_urls: {
+        return_url: "http://return.url",
+        cancel_url: "http://cancel.url"
+    },
+    transactions: [{
+        item_list: {
+            items: [{
+                name: "item",
+                sku: "item",
+                price: "1.00",
+                currency: "USD",
+                quantity: 1
+            }]
+        },
+        amount: {
+            currency: "EUR",
+            total: "1.00"
+        },
+        description: "Articles at Tienda Modelo"
+    }]
+  };
+  
+  
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+        throw error;
+    } else {
+        console.log("Create Payment Response");
+        console.log(payment);
+    }
+  });
 
   order.save()
     .then(order => res.status(201).json(order))
@@ -87,6 +125,7 @@ module.exports.editShop = (req, res, next) => {
     req.body.shop.styles.landingImage.backgroundImage = `url(${req.file.secure_url})`
   }
   */
+ if (shop.styles.landingImage.backgroundImage) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
 
   Shop.findOneAndUpdate({name: name}, { $set: shop}, { new: true, runValidators: true})
     .then(shop => {
