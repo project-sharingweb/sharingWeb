@@ -48,6 +48,7 @@ const shopSchema = new mongoose.Schema({
    moto: {
        type: String,
        maxlength: 144,
+       default: "Type your moto"
    },
    contact: {
        type: String,
@@ -71,22 +72,22 @@ const shopSchema = new mongoose.Schema({
             color: {type: String, default: "black"}
        },
        landingImage: {
-            backgroundImage: String
+            backgroundImage: {type: String, default: "Url(https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-03.jpg)"}
        },
        titleFont: {
-            color: {type: String}
+            color: {type: String, default: "black"}
        },
        background: {
             backgroundColor: {type: String, default: "white"}
        },
        purchaseButton: {
-            backgroundColor: {type: String}
+            backgroundColor: {type: String, default: "white"}
        },
        footerBackground: {
             backgroundColor: {type: String, default: "lightblue"}
        },
        footerFont: {
-            color: {type: String}
+            color: {type: String, default: "black"}
        }
    }
    }, {timestamps: true, toJSON:{

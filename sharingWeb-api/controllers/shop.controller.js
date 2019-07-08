@@ -1,6 +1,7 @@
 const Shop = require('../models/shop.model')
 const Product = require('../models/product.model')
 const Order = require('../models/order.model')
+const paypal = require('paypal-rest-sdk')
 
 
 module.exports.list = (req, res, next) => {
@@ -67,8 +68,11 @@ module.exports.ordersDetail = (req, res, next) => {
 }
 
 
-module.exports.purchase = (req, res, next) => {
+module.exports.purchase = async (req, res, next) => {
+  console.log(req.body)
   const order = new Order(req.body)
+
+  await order.save()
   
   var create_payment_json = {
     intent: "sale",
@@ -85,7 +89,7 @@ module.exports.purchase = (req, res, next) => {
                 name: "item",
                 sku: "item",
                 price: "1.00",
-                currency: "USD",
+                currency: "EUR",
                 quantity: 1
             }]
         },
@@ -100,16 +104,12 @@ module.exports.purchase = (req, res, next) => {
   
   paypal.payment.create(create_payment_json, function (error, payment) {
     if (error) {
+        console.log(JSON.stringify(error))
         throw error;
     } else {
-        console.log("Create Payment Response");
-        console.log(payment);
+        res.json({ url: payment.links[1].href })
     }
   });
-
-  order.save()
-    .then(order => res.status(201).json(order))
-    .catch(next)
 }
 
 module.exports.editShop = (req, res, next) => {
@@ -117,14 +117,15 @@ module.exports.editShop = (req, res, next) => {
   delete shop.email
   delete shop.password
   delete shop.name
+  console.log(req.files)
 
   const { name } = req.user
-/*
+
   if (req.files) {
-    req.body.shop.styles.logo = req.file.secure_url;
-    req.body.shop.styles.landingImage.backgroundImage = `url(${req.file.secure_url})`
+    req.body.shop.styles.logo = req.files.logo.secure_url;
+    req.body.shop.styles.landingImage.backgroundImage = `url(${req.file.background.secure_url})`
   }
-  */
+  
  if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
 
   Shop.findOneAndUpdate({name: name}, { $set: shop}, { new: true, runValidators: true})
