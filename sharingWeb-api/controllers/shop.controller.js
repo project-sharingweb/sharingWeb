@@ -125,7 +125,7 @@ module.exports.editShop = (req, res, next) => {
     req.body.shop.styles.landingImage.backgroundImage = `url(${req.file.secure_url})`
   }
   */
- if (shop.styles.landingImage.backgroundImage) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
+ if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
 
   Shop.findOneAndUpdate({name: name}, { $set: shop}, { new: true, runValidators: true})
     .then(shop => {
