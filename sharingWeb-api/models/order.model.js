@@ -14,10 +14,8 @@ const orderSchema = new mongoose.Schema({
     default: "pending"
   },
   products: [{
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
   }],
   street: {
     type: String,
@@ -47,7 +45,13 @@ const orderSchema = new mongoose.Schema({
   lastName: {
     type: String,
     required: true
-  }
+  },
+  price: {
+    type: String
+  },
+  amounts: [{
+    type: Number,
+  }]
    }, {timestamps: true, toJSON:{
        virtuals: true,
        transform: (doc, ret ) => {
