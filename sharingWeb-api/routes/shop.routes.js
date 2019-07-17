@@ -20,7 +20,7 @@ router.post('/:name/products/delete', secure.isAuthenticated, secure.ownedByUser
 router.post('/:name/products', secure.isAuthenticated, secure.ownedByUser, storage.single('image'), shopController.addProduct)
 router.get('/:name/products/:id', shopController.productDetail)
 
-router.get('/:name/orders', secure.isAuthenticated, secure.ownedByUser, shopController.ordersList)
+router.get('/:name/orders', shopController.ordersList)
 router.post('/:name/orders', shopController.purchase)
 router.get('/:name/orders/:id/modify', shopController.confirmPayment)
 router.get('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shopController.ordersDetail)

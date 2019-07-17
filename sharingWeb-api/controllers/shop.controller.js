@@ -64,6 +64,7 @@ module.exports.ordersList = (req, res, next) => {
   const shopName = req.params.name
 
   Order.find({shopName: shopName})
+    .populate('products.product')
     .then(orders => res.status(200).json(orders))
     .catch(next)
 
