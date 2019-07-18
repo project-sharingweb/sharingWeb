@@ -24,6 +24,7 @@ router.get('/:name/orders', shopController.ordersList)
 router.post('/:name/orders', shopController.purchase)
 router.get('/:name/orders/:id/modify', shopController.confirmPayment)
 router.get('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shopController.ordersDetail)
+router.post('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shopController.editOrder)
 
 
 

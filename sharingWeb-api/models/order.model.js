@@ -13,6 +13,9 @@ const orderSchema = new mongoose.Schema({
     enum: ["pending", "completed", "in process"],
     default: "pending"
   },
+  number: {
+    type: String,
+  },
   products: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',

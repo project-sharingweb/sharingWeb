@@ -250,7 +250,7 @@ module.exports.confirmPayment = (req, res, next) => {
               from: `${order.urlName}`,
               to: "guillermolucena@hotmail.com",
               subject: `Thank you ${order.name}`, 
-              text: 'Order confirmation',
+              text: `Order confirmation number #${order.number}`,
               html: `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
               <head>
               <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -407,7 +407,7 @@ module.exports.confirmPayment = (req, res, next) => {
               <div class="col num6" style="min-width: 320px; max-width: 325px; display: table-cell; vertical-align: top; width: 325px;">
               <div style="width:100% !important;">
               <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:25px; padding-bottom:25px; padding-right: 25px; padding-left: 0px;">
-              <div></div>
+              <div>${order.number}</div>
               </div>
               </div>
               </div>
@@ -708,4 +708,18 @@ module.exports.editShop = (req, res, next) => {
       else createError(404, 'shop not found')
     })
     .catch(next)
+}
+
+module.exports.editOrder = (req, res, next) => {
+  const id = req.params.id
+
+  Order.findById(id)
+    .then(order => {
+      order.status = "completed"
+      order.save()
+        .then(order => res.json(order))
+        .catch(next)
+    })
+    .catch(next)
+
 }
