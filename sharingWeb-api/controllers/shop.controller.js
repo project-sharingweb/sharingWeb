@@ -43,8 +43,11 @@ module.exports.productDetail = (req, res, next) => {
 
 
 module.exports.addProduct = (req, res, next) => {
-
   const product = new Product(req.body)
+
+  if (req.file) {
+    product.image = req.file.secure_url;
+  }
 
   product.save()
     .then(product => res.status(201).json(product))
@@ -53,7 +56,6 @@ module.exports.addProduct = (req, res, next) => {
 
 module.exports.deleteProduct = (req, res, next) => {
   const product = req.body
-  console.log(product.id)
 
   Product.findByIdAndDelete(product.id)
     .then(product => res.status(200))
@@ -140,7 +142,6 @@ module.exports.confirmPayment = (req, res, next) => {
         if (order) {
           order.status = "in process"
           return order.save().then( order => {
-            console.log(order)
             let list = order.products.map((item, i) => { 
               return `<div style="background-color:transparent;">
               <div class="block-grid four-up no-stack" style="Margin: 0 auto; min-width: 320px; max-width: 650px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #FFFFFF;">
@@ -399,7 +400,7 @@ module.exports.confirmPayment = (req, res, next) => {
               <div style="width:100% !important;">
               <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:25px; padding-bottom:25px; padding-right: 0px; padding-left: 25px;">
               <div align="left" class="img-container left fullwidthOnMobile fixedwidth" style="padding-right: 0px;padding-left: 0px;">
-              <div style="font-size:1px;line-height:5px"> </div><img alt="Image" border="0" class="left fullwidthOnMobile fixedwidth" src=${shop.logo} style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 195px; display: block;" title="Image" width="195"/>
+              <div style="font-size:1px;line-height:5px"> </div><img alt="Image" border="0" class="left fullwidthOnMobile fixedwidth" src=${shop.logo} style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 150px; display: block;" title="Image" width="195"/>
               </div>
               </div>
               </div>
@@ -407,7 +408,7 @@ module.exports.confirmPayment = (req, res, next) => {
               <div class="col num6" style="min-width: 320px; max-width: 325px; display: table-cell; vertical-align: top; width: 325px;">
               <div style="width:100% !important;">
               <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:25px; padding-bottom:25px; padding-right: 25px; padding-left: 0px;">
-              <div>${order.number}</div>
+              <div style="font-size: 2rem; padding-top: 25px">Order Number: #${order.number}</div>
               </div>
               </div>
               </div>
@@ -686,18 +687,21 @@ module.exports.confirmPayment = (req, res, next) => {
 }
 
 
-module.exports.editShop = (req, res, next) => {
-  const shop = req.body
+module.exports.editShop = async (req, res, next) => {
+  const id = req.body.id
+  const shop = await Shop.findById(id)
   delete shop.email
   delete shop.password
   delete shop.name
-  console.log(req.files)
+
 
   const { name } = req.user
 
-  if (req.files) {
-    req.body.shop.styles.logo = req.files.logo.secure_url;
-    req.body.shop.styles.landingImage.backgroundImage = `url(${req.file.background.secure_url})`
+  if (req.files.logo) {
+    shop.logo = req.files.logo[0].secure_url;
+  }
+  if (req.files.background) {
+    shop.styles.landingImage.backgroundImage = `url(${req.files.background[0].secure_url})`
   }
   
  if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
