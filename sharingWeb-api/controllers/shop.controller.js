@@ -58,7 +58,7 @@ module.exports.deleteProduct = (req, res, next) => {
   const product = req.body
 
   Product.findByIdAndDelete(product.id)
-    .then(product => res.status(200))
+    .then(product => res.status(200).json(product))
     .catch(next)
 } 
 
@@ -249,7 +249,7 @@ module.exports.confirmPayment = (req, res, next) => {
             
             transporter.sendMail({
               from: `${order.urlName}`,
-              to: "guillermolucena@hotmail.com",
+              to: `${order.email}`,
               subject: `Thank you ${order.name}`, 
               text: `Order confirmation number #${order.number}`,
               html: `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
