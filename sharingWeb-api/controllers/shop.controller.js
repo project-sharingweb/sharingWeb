@@ -689,22 +689,24 @@ module.exports.confirmPayment = (req, res, next) => {
 
 module.exports.editShop = async (req, res, next) => {
   const id = req.body.id
-  const shop = await Shop.findById(id)
+  let shop;
+  if(req.body.styles.nav) {shop = req.body}
+  else{ shop = await Shop.findById(id)}
   delete shop.email
   delete shop.password
   delete shop.name
 
 
   const { name } = req.user
-
-  if (req.files.logo) {
-    shop.logo = req.files.logo[0].secure_url;
+  if(req.files){
+    if (req.files.logo) {
+      shop.logo = req.files.logo[0].secure_url;
+    }
+    if (req.files.background) {
+      shop.styles.landingImage.backgroundImage = `url(${req.files.background[0].secure_url})`
+    }
   }
-  if (req.files.background) {
-    shop.styles.landingImage.backgroundImage = `url(${req.files.background[0].secure_url})`
-  }
-  
- if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
+  if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
 
   Shop.findOneAndUpdate({name: name}, { $set: shop}, { new: true, runValidators: true})
     .then(shop => {
