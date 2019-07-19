@@ -12,7 +12,12 @@ module.exports.register = (req, res, next) => {
         throw createError(409, 'Email already registered')
       }
       else {
-        return new Shop(req.body).save()
+        const newShop = new Shop(req.body)
+        newShop.locations = {
+          type: "Point",
+          coordinates: [req.body.longitude, req.body.latitude]
+        }
+        return newShop.save()
       }
     })
     .then(shop => res.status(201).json(shop))

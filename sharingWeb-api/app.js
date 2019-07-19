@@ -36,6 +36,10 @@ app.use('/auth', authRouter);
 app.use('/shops', shopRouter);
 app.use('/', homeRouter);
 
+app.use((req, res, next) => {
+  next(createError(404))
+})
+
 //handling errors
 app.use(function (error, req, res, next) {
   console.error(error)
@@ -52,6 +56,10 @@ app.use(function (error, req, res, next) {
   }
   else if (error instanceof mongoose.Error.CastError) {
     error = createError(404, 'Resource not found')
+  }
+  else if (error.name === "MongoError"){
+    res.status(400)
+    data.name = "MongoError"
   }
 
   data.message = error.message;
