@@ -58,7 +58,7 @@ module.exports.deleteProduct = (req, res, next) => {
   const product = req.body
 
   Product.findByIdAndDelete(product.id)
-    .then(product => res.status(200))
+    .then(product => res.status(200).json(product))
     .catch(next)
 } 
 
@@ -249,7 +249,7 @@ module.exports.confirmPayment = (req, res, next) => {
             
             transporter.sendMail({
               from: `${order.urlName}`,
-              to: "guillermolucena@hotmail.com",
+              to: `${order.email}`,
               subject: `Thank you ${order.name}`, 
               text: `Order confirmation number #${order.number}`,
               html: `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -689,22 +689,24 @@ module.exports.confirmPayment = (req, res, next) => {
 
 module.exports.editShop = async (req, res, next) => {
   const id = req.body.id
-  const shop = await Shop.findById(id)
+  let shop;
+  if(req.body.styles.nav) {shop = req.body}
+  else{ shop = await Shop.findById(id)}
   delete shop.email
   delete shop.password
   delete shop.name
 
 
   const { name } = req.user
-
-  if (req.files.logo) {
-    shop.logo = req.files.logo[0].secure_url;
+  if(req.files){
+    if (req.files.logo) {
+      shop.logo = req.files.logo[0].secure_url;
+    }
+    if (req.files.background) {
+      shop.styles.landingImage.backgroundImage = `url(${req.files.background[0].secure_url})`
+    }
   }
-  if (req.files.background) {
-    shop.styles.landingImage.backgroundImage = `url(${req.files.background[0].secure_url})`
-  }
-  
- if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
+  if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
 
   Shop.findOneAndUpdate({name: name}, { $set: shop}, { new: true, runValidators: true})
     .then(shop => {
