@@ -27,6 +27,4 @@ router.get('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shop
 router.post('/:name/orders/:id', secure.isAuthenticated, secure.ownedByUser, shopController.editOrder)
 
 
-
-
 module.exports = router;

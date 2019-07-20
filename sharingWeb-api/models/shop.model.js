@@ -105,7 +105,8 @@ const shopSchema = new mongoose.Schema({
            delete ret.__v
            return ret;
        }
-   }
+    }
+
 })
 
 shopSchema.pre('save', function(next){
