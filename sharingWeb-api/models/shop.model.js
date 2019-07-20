@@ -68,6 +68,12 @@ const shopSchema = new mongoose.Schema({
        nav: {
             backgroundColor: {type: String, default: "white"},
        },
+       motoColor: {
+            color: {type: String, default: "black"}
+       },
+       text: {
+            color: {type: String, default: "black"}
+   },
        navLinks: {
             color: {type: String, default: "black"}
        },
