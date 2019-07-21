@@ -93,8 +93,8 @@ module.exports.purchase = async (req, res, next) => {
         payment_method: "paypal"
     },
     redirect_urls: {
-        return_url: `http://localhost:3001/shops/${req.body.shopName}/orders/${order.id}/modify`,
-        cancel_url: `http://localhost:3000/shops/${req.body.shopName}/failed`
+        return_url: `https://sharingweb-api.herokuapp.com/shops/${req.body.shopName}/orders/${order.id}/modify`,
+        cancel_url: `https://sharingweb.herokuapp.com/shops/${req.body.shopName}/failed`
     },
     transactions: [{
         item_list: {
@@ -583,7 +583,7 @@ module.exports.confirmPayment = (req, res, next) => {
               </tbody>
               </table>
               <div align="center" class="button-container" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
-              <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:34.5pt; width:133.5pt; v-text-anchor:middle;" arcsize="33%" stroke="false" fillcolor="#fc7318"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Tahoma, Verdana, sans-serif; font-size:18px"><![endif]--><a href="http://localhost:3000/shops/${order.shopName}/" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #fc7318; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; width: auto; width: auto; border-top: 1px solid #fc7318; border-right: 1px solid #fc7318; border-bottom: 1px solid #fc7318; border-left: 1px solid #fc7318; padding-top: 5px; padding-bottom: 5px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;" target="_blank"><span style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;">
+              <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:34.5pt; width:133.5pt; v-text-anchor:middle;" arcsize="33%" stroke="false" fillcolor="#fc7318"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Tahoma, Verdana, sans-serif; font-size:18px"><![endif]--><a href="https://sharingweb.herokuapp.com/shops/${order.shopName}/" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #fc7318; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; width: auto; width: auto; border-top: 1px solid #fc7318; border-right: 1px solid #fc7318; border-bottom: 1px solid #fc7318; border-left: 1px solid #fc7318; padding-top: 5px; padding-bottom: 5px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;" target="_blank"><span style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;">
               <span style="font-size: 16px; line-height: 32px;"><span style="font-size: 18px; line-height: 36px;"><strong>Go to our store › </strong></span></span>
               </span></a>
               <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
@@ -673,7 +673,7 @@ module.exports.confirmPayment = (req, res, next) => {
               .then(info => console.log(info))
               .catch(error => console.log(error))
   
-            res.status(200).redirect(`http://localhost:3000/shops/${order.shopName}/success/${order.id}`)
+            res.status(200).redirect(`https://sharingweb.herokuapp.com/shops/${order.shopName}/success/${order.id}`)
           })
         }
         else createError(404, 'shop not found')
