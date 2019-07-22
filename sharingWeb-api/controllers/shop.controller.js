@@ -113,7 +113,7 @@ module.exports.purchase = async (req, res, next) => {
         },
         amount: {
             currency: "EUR",
-            total: req.body.cart.reduce((acc, item)=> (acc + (a.price*a.amount)), 0).toString()
+            total: req.body.cart.reduce((acc, item)=> (acc + (item.price*item.amount)), 0).toString()
         },
         description: `Order for articles purchased at ${req.body.shopName}`
     }]
