@@ -54,6 +54,9 @@ const orderSchema = new mongoose.Schema({
   },
   amounts: [{
     type: Number,
+  }],
+  sizes: [{
+    type: String,
   }]
    }, {timestamps: true, toJSON:{
        virtuals: true,

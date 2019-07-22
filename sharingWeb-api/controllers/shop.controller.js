@@ -44,6 +44,8 @@ module.exports.productDetail = (req, res, next) => {
 
 module.exports.addProduct = (req, res, next) => {
   const product = new Product(req.body)
+  product.size = product.size[0].split(",")
+  console.log(product.size)
 
   if (req.file) {
     product.image = req.file.secure_url;
@@ -172,7 +174,7 @@ module.exports.confirmPayment = (req, res, next) => {
               <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 0px; padding-top: 10px; padding-bottom: 5px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
               <div style="color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:5px;padding-left:0px;">
               <div style="font-size: 12px; line-height: 14px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif; color: #555555;">
-              <p style="font-size: 14px; line-height: 19px; text-align: left; margin: 0;"><span style="font-size: 16px; color: #2190e3;"><strong>${item.name}</strong></span></p>
+              <p style="font-size: 14px; line-height: 19px; text-align: left; margin: 0;"><span style="font-size: 16px; color: #2190e3;"><strong>${item.name} ${order.sizes[i]}</strong></span></p>
               </div>
               </div>
               <!--[if mso]></td></tr></table><![endif]-->

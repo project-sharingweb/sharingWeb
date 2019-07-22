@@ -35,6 +35,9 @@ const productSchema = new mongoose.Schema({
      min: 0,
      required: true,
    },
+   size: [{
+     type: String
+   }],
    image: {
      type: String,
      match: [URL_PATTERN, 'Not valid url pattern'],
