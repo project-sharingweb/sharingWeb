@@ -36,7 +36,8 @@ const productSchema = new mongoose.Schema({
      required: true,
    },
    size: [{
-     type: String
+     type: String,
+     default: ["One Size"]
    }],
    image: {
      type: String,
