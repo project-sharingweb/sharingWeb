@@ -14,7 +14,7 @@ const modifyName = (name) => {
         else return item
     })
     name = name.join("")
-    console.log(name)
+    
     return name;
 }
 
@@ -49,6 +49,11 @@ const shopSchema = new mongoose.Schema({
        type: String,
        maxlength: 144,
        default: "Type your moto"
+   },
+   currency: {
+    type: String,
+    default: "EUR",
+    enum: ["EUR","USD"]
    },
    contact: {
        type: String,

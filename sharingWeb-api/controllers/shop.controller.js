@@ -45,7 +45,6 @@ module.exports.productDetail = (req, res, next) => {
 
 module.exports.addProduct = (req, res, next) => {
   const product = new Product(req.body)
-  console.log(product.size)
   product.size = product.size[0].split(",")
 
   if (req.file) {
@@ -123,14 +122,14 @@ module.exports.purchase = async (req, res, next) => {
                 name: item.name,
                 sku: item.id,
                 price: parseFloat(item.price),
-                currency: "EUR",
+                currency: order.currency,
                 quantity: item.amount
               }
               return obj
             })
         },
         amount: {
-            currency: "EUR",
+            currency: order.currency,
             total: req.body.cart.reduce((acc, item)=> acc + (parseFloat(item.price)*item.amount),0).toFixed(2)
         },
         description: `Order for articles purchased at ${req.body.shopName}`
@@ -246,7 +245,7 @@ module.exports.confirmPayment = (req, res, next) => {
               <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 15px; padding-left: 0px; padding-top: 0px; padding-bottom: 0px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
               <div style="color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;line-height:120%;padding-top:0px;padding-right:15px;padding-bottom:0px;padding-left:0px;">
               <div style="line-height: 14px; font-size: 12px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif; color: #555555;">
-              <p style="line-height: 24px; text-align: center; font-size: 12px; margin: 0;"><span style="font-size: 20px;"><span style="line-height: 24px; font-size: 20px;"><strong>${(parseFloat(item.price)*order.amounts[i]).toFixed(2)} €</strong></span></span></p>
+              <p style="line-height: 24px; text-align: center; font-size: 12px; margin: 0;"><span style="font-size: 20px;"><span style="line-height: 24px; font-size: 20px;"><strong>${(parseFloat(item.price)*order.amounts[i]).toFixed(2)} ${order.currency}</strong></span></span></p>
               </div>
               </div>
               <!--[if mso]></td></tr></table><![endif]-->

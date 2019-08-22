@@ -57,7 +57,12 @@ const orderSchema = new mongoose.Schema({
   }],
   sizes: [{
     type: String,
-  }]
+  }],
+  currency: {
+    type: String,
+    default: "EUR",
+    enum: ["EUR","USD"]
+   },
    }, {timestamps: true, toJSON:{
        virtuals: true,
        transform: (doc, ret ) => {
