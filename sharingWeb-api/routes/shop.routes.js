@@ -17,6 +17,7 @@ router.put('/:name',
 
 router.get('/:name/products', shopController.productsList)
 router.post('/:name/products/delete', secure.isAuthenticated, secure.ownedByUser, shopController.deleteProduct)
+router.post('/:name/products/:id/edit', secure.isAuthenticated, secure.ownedByUser, storage.single('image'), shopController.editProduct)
 router.post('/:name/products', secure.isAuthenticated, secure.ownedByUser, storage.single('image'), shopController.addProduct)
 router.get('/:name/products/:id', shopController.productDetail)
 

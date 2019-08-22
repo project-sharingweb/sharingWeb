@@ -35,6 +35,10 @@ const productSchema = new mongoose.Schema({
      min: 0,
      required: true,
    },
+   priceBefore: {
+    type: Number,
+    min: 0
+   },
    size: [{
      type: String,
      default: ["One Size"]

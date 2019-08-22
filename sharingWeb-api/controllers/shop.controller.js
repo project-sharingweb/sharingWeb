@@ -1,4 +1,5 @@
 const Shop = require('../models/shop.model')
+const createError = require('http-errors');
 const Product = require('../models/product.model')
 const Order = require('../models/order.model')
 const paypal = require('paypal-rest-sdk')
@@ -44,8 +45,8 @@ module.exports.productDetail = (req, res, next) => {
 
 module.exports.addProduct = (req, res, next) => {
   const product = new Product(req.body)
-  product.size = product.size[0].split(",")
   console.log(product.size)
+  product.size = product.size[0].split(",")
 
   if (req.file) {
     product.image = req.file.secure_url;
@@ -53,6 +54,23 @@ module.exports.addProduct = (req, res, next) => {
 
   product.save()
     .then(product => res.status(201).json(product))
+    .catch(next)
+}
+
+module.exports.editProduct = (req, res, next) => {
+  const id = req.params.id
+  const product = req.body
+  product.size = product.size[0].split(",")
+
+  if (req.file) {
+    product.image = req.file.secure_url;
+  }
+
+  Product.findByIdAndUpdate({_id: id}, { $set: product}, { new: true, runValidators: true})
+    .then(product => {
+      if (product) res.json(product)
+      else createError(404, 'product not found')
+    })
     .catch(next)
 }
 
@@ -86,9 +104,7 @@ module.exports.ordersDetail = (req, res, next) => {
 
 module.exports.purchase = async (req, res, next) => {
   const order = new Order(req.body)
-  console.log("MIRA AQUIIIIIIII" + req.body.cart.reduce((acc, item)=> acc + (parseFloat(item.price)*item.amount),0).toFixed(2))
-  console.log("MIRA AQUIIIIIIII" + req.body.cart.reduce((acc, item)=> acc + (parseInt(item.price)*item.amount), 0).toString())
-
+  
   await order.save()
   
   var create_payment_json = {
