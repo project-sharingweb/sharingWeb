@@ -59,7 +59,7 @@ module.exports.addProduct = (req, res, next) => {
 module.exports.editProduct = (req, res, next) => {
   const id = req.params.id
   const product = req.body
-  product.size = product.size[0].split(",")
+  product.size = product.size.split(",")
 
   if (req.file) {
     product.image = req.file.secure_url;
