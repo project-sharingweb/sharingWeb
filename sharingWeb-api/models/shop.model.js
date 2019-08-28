@@ -69,6 +69,24 @@ const shopSchema = new mongoose.Schema({
     default: "https://res.cloudinary.com/dvjtdeyli/image/upload/v1562163110/game-images/logo_limpio_hagncs.png",
     match: [URL_PATTERN, 'Invalid name url']
    },
+   productSections: [{
+    type: String,
+   }],
+   sections: [{
+    secType: {
+        type: String,
+        enum: ["text","image"]
+    },
+    title: {
+        type: String,
+    },
+    image: {
+        type: String,
+    },
+    text: {
+        type: String
+    },
+   }],
    styles: {
        nav: {
             backgroundColor: {type: String, default: "white"},
