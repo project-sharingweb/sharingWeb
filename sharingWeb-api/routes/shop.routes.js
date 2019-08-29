@@ -11,7 +11,8 @@ router.put('/:name',
   secure.ownedByUser, 
   storage.fields([
     {name: "logo", maxCount: 1},
-    {name: "background", maxCount: 1}
+    {name: "background", maxCount: 1},
+    {name: "section", maxCount: 1}
   ]), 
   shopController.editShop)
 

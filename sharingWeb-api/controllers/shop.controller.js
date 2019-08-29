@@ -714,8 +714,14 @@ module.exports.editShop = async (req, res, next) => {
   delete shop.email
   delete shop.password
   delete shop.name
-
-
+  if (req.body.secType === "image"){
+    let obj = {
+      secType: req.body.secType,
+      text: req.body.text,
+      title: req.body.title
+    }
+    shop.sections.push(obj)
+  }
   const { name } = req.user
   if(req.files){
     if (req.files.logo) {
@@ -723,6 +729,9 @@ module.exports.editShop = async (req, res, next) => {
     }
     if (req.files.background) {
       shop.styles.landingImage.backgroundImage = `url(${req.files.background[0].secure_url})`
+    }
+    if (req.files.section){
+      shop.sections[shop.sections.length-1].image = `${req.files.section[0].secure_url}`    
     }
   }
   if (!shop.styles.landingImage.backgroundImage.includes('url(')) shop.styles.landingImage.backgroundImage = `url(${shop.styles.landingImage.backgroundImage})`
